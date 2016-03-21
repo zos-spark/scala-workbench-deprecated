@@ -1,6 +1,6 @@
-# Jupyter Notebook for zSpark
+# Jupyter Notebook for IBM z/OS Platform for Apache Spark
 
-The Jupyter Notebook for zSpark is based on the [Jupyter Notebook](https://jupyter.org/) server.
+The Jupyter Notebook for IBM z/OS Platform for Apache Spark is based on the [Jupyter Notebook](https://jupyter.org/) server.
 
 This README demonstrates how to build the workbench as a Docker image, and how to run the workbench image as a Docker container on a Docker Machine-controlled host.
 
@@ -226,81 +226,6 @@ To run Docker commands on `mymachine`, activate it by running:
 eval "$(docker-machine env mymachine)"
 ```
 
-### Can I run multiple notebook containers on the same host?
-
-Yes. Set environment variables to specify unique names and ports when running the `up.sh` command.
-
-```
-NAME=my-notebook PORT=9000 notebook/up.sh
-NAME=your-notebook PORT=9001 notebook/up.sh
-```
-
-To stop and remove the containers:
-
-```
-NAME=my-notebook notebook/down.sh
-NAME=your-notebook notebook/down.sh
-```
-
-### Where are my notebooks stored?
-
-The `up.sh` creates a Docker volume named after the notebook container with a `-work` suffix, e.g., `my-notebook-work`.
-
-
-### Can multiple notebook containers share the same notebook volume?
-
-Yes. Set the `WORK_VOLUME` environment variable to the same value for each notebook.
-
-```
-NAME=my-notebook PORT=9000 WORK_VOLUME=our-work notebook/up.sh
-NAME=your-notebook PORT=9001 WORK_VOLUME=our-work notebook/up.sh
-```
-
-### How do I run over HTTPS?
-
-To run the notebook server with a self-signed certificate, pass the `--secure` option to the `up.sh` script.  You must also provide a password, which will be used to secure the notebook server.  You can specify the password by setting the `PASSWORD` environment variable, or by passing it to the `up.sh` script.  
-
-```
-PASSWORD=a_secret notebook/up.sh --secure
-
-# or
-notebook/up.sh --secure --password a_secret
-```
-
-### Can I use Let's Encrypt certificate chains?
-
-Sure.  If you want to secure access to publicly addressable notebook containers, you can generate a free certificate using the [Let's Encrypt](https://letsencrypt.org) service.
-
-
-This example includes the `bin/letsencrypt.sh` script, which runs the `letsencrypt` client to create a full-chain certificate and private key, and stores them in a Docker volume.  _Note:_ The script hard codes several `letsencrypt` options, one of which automatically agrees to the Let's Encrypt Terms of Service.
-
-The following command will create a certificate chain and store it in a Docker volume named `mydomain-secrets`.
-
-```
-FQDN=host.mydomain.com EMAIL=myemail@somewhere.com \
-  SECRETS_VOLUME=mydomain-secrets \
-  bin/letsencrypt.sh
-```
-
-Now run `up.sh` with the `--letsencrypt` option.  You must also provide the name of the secrets volume and a password.
-
-```
-PASSWORD=a_secret SECRETS_VOLUME=mydomain-secrets notebook/up.sh --letsencrypt
-
-# or
-notebook/up.sh --letsencrypt --password a_secret --secrets mydomain-secrets
-```
-
-Be aware that Let's Encrypt has a pretty [low rate limit per domain](https://community.letsencrypt.org/t/public-beta-rate-limits/4772/3) at the moment.  You can avoid exhausting your limit by testing against the Let's Encrypt staging servers.  To hit their staging servers, set the environment variable `CERT_SERVER=--staging`.
-
-```
-FQDN=host.mydomain.com EMAIL=myemail@somewhere.com \
-  CERT_SERVER=--staging \
-  bin/letsencrypt.sh
-```
-
-Also, be aware that Let's Encrypt certificates are short lived (90 days).  If you need them for a longer period of time, you'll need to manually setup a cron job to run the renewal steps. (You can reuse the command above.)
-
 ### Can I customize the workbench image?
 
 Yes.  You can customize the workbench image by modifying the files in the `template` directory.  For example, you can install the `pymongo` and `python-twitter` Python libraries by adding the following lines to the bottom of the Dockerfile:
@@ -314,15 +239,12 @@ RUN pip install \
 Once you modify the Dockerfile, you need to rebuild the image and restart the notebook container before the changes will take effect.
 
 ```
-# activate the docker machine
-eval "$(docker-machine env mymachine)"
-
 # rebuild the notebook image
-notebook/build.sh
+sh build.sh
 
 # restart the notebook container
-notebook/down.sh
-notebook/up.sh
+sh stop.sh
+sh start.sh
 ```
 
 
