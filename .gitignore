@@ -1,6 +1,5 @@
 .DS_Store
 Dockerfile
-docker-compose.yml
 ibm-java-x86_64-sdk-8.0-2.10.bin
 kernel.json
 spark-assembly-1.5.2-hadoop2.6.0.jar

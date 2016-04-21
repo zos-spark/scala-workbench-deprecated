@@ -6,18 +6,19 @@ version: "2"
 services:
   notebook:
     build: .
-    container_name: "TMP_WORKBOOK_NAME"
+    image: zos-spark/scala-notebook
+    container_name: ${WORKBOOK_NAME}
     command: >
       start-notebook.sh
-      --port="TMP_WORKBOOK_PORT"
+      --port=${WORKBOOK_PORT}
     network_mode: "host"
     environment:
-      JDBC_USER: "<JDBC_USER>"
-      JDBC_PASS: "<JDBC_PASS>"
-      JDBC_HOST: "<JDBC_HOST>"
-      MONGO_USER: "<MONGO_USER>"
-      MONGO_PASS: "<MONGO_PASS>"
-      MONGO_HOST: "<MONGO_HOST>"
+      JDBC_USER:
+      JDBC_PASS:
+      JDBC_HOST:
+      MONGO_USER:
+      MONGO_PASS:
+      MONGO_HOST:
       IBM_JAVA_OPTIONS: "-Dlog4j.configurationFile=/home/jovyan/work/log4j.properties"
     volumes:
       - "work:/home/jovyan/work"
