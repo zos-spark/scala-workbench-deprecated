@@ -21,7 +21,11 @@ As per the [Reference Architecture Diagram](https://ibm.box.com/shared/static/xm
     * [Docker Compose](https://docs.docker.com/compose/) 1.6.0+
 
 ## Getting Started
-To run the workbench on your local desktop, follow the steps below.  By doing so, you will:
+This project uses [Docker Machine](https://docs.docker.com/machine/overview/) as a tool on your local desktop to provision and manage your target docker environment for the Scala Workbench. Your target docker environment needs to be a physical or virtual machine located within the same network addressable enironment as the hosted instance of IBM z/OS Platform for Apache Spark.
+
+![docker machine](https://docs.docker.com/machine/img/machine.png)
+
+To prepare your local desktop, follow the steps below:
 
 * Download IBM Java 8.2 sdk
 * Create a new VirtualBox virtual machine on your local desktop
