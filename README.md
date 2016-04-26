@@ -8,14 +8,17 @@ This README demonstrates how to build the workbench as a Docker image, and how t
 
 ## Prerequisites
 
-* [Docker Engine](https://docs.docker.com/engine/) 1.10.0+
-* [Docker Machine](https://docs.docker.com/machine/) 0.6.0+
-* [Docker Compose](https://docs.docker.com/compose/) 1.6.0+
-* Host running IBM z/OS Platform for Apache Spark obtained through [ShopzSeries](http://www.software.ibm.com/ShopzSeries)
+As per the [Reference Architecture Diagram](https://ibm.box.com/shared/static/xm05xl372hkbmmj4eu9fhoq0kplytzp3.png), the following components of a deployment topology are required:
 
-See the [Docker installation instructions](https://docs.docker.com/engine/installation/) for your environment, and see the [zSpark installation instructions](<FIX HERE>) for details on how to setup your Spark environment.
-
-
+* IBM z/OS Platform for Apache Spark
+  * [ShopZ - Product Ordering Details](https://www-304.ibm.com/software/shopzseries/ShopzSeries_public.wss)
+  * [Installation Instructions](http://www-03.ibm.com/support/techdocs/atsmastr.nsf/WebIndex/WP102609) for details on how to setup your Spark environment.
+* Docker Environment for Scala Workbench
+  * As per the [Apache Spark component architecture requirements](https://spark.apache.org/docs/0.8.0/cluster-overview.html), a *driver program* should be run close to the worker nodes, preferably on the same local area network. The *driver program* must be network addressable to all nodes in the Spark cluster. **This implies that the target physical or virtual machine for the Scala Workbench must be located within the same network addressable enironment as the hosted instance of IBM z/OS Platform for Apache Spark**.
+  * See the [Docker installation instructions](https://docs.docker.com/engine/installation/) for your target docker environment. **Note: Testing has been done using Docker on Ubuntu (baremetal and VM)**.
+    * [Docker Engine](https://docs.docker.com/engine/) 1.10.0+
+    * [Docker Machine](https://docs.docker.com/machine/) 0.6.0+
+    * [Docker Compose](https://docs.docker.com/compose/) 1.6.0+
 
 ## Getting Started
 To run the workbench on your local desktop, follow the steps below.  By doing so, you will:
