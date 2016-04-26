@@ -1,6 +1,6 @@
-# Jupyter Notebook for IBM z/OS Platform for Apache Spark
+# Scala Workbench for IBM z/OS Platform for Apache Spark
 
-The Jupyter Notebook for IBM z/OS Platform for Apache Spark is based on the [Jupyter Notebook](https://jupyter.org/) server.
+The Scala Workbench for IBM z/OS Platform for Apache Spark is based on [Project Jupyter](https://jupyter.org/).
 
 This README demonstrates how to build the workbench as a Docker image, and how to run the workbench image as a Docker container on a Docker Machine-controlled host.
 
