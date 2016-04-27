@@ -27,66 +27,24 @@ This project uses [Docker Machine](https://docs.docker.com/machine/overview/) as
 
 To prepare your local desktop, follow the steps below:
 
-* Download IBM Java 8.2 sdk
+* Download required JAR files
 * Create a new VirtualBox virtual machine on your local desktop
 * Build the workbench Docker image on the VM
-* Run the workbench Docker image as a Docker container on the VM
+* Run a workbench Docker container on the VM
 
-### Prep IBM JAVA 8R2 sdk
-Download IBM JAVA 8R2 sdk for 64-bit AMD/Opteron/EM64T > Installable package (InstallAnywhere as root) from [IBM Developer Works](http://www.ibm.com/developerworks/java/jdk/linux/download.html) and save it in the project home as ibm-java-x86_64-sdk-8.0-2.10.bin
+### Download JAR files
 
-**NOTE: The project is tied to IBM Java 8R2, so you need ibm-java-x86_64-sdk-8.0-2.10.bin**
+* **IBM JAVA 8R2 SDK**: Download the IBM JAVA 8R2 sdk for 64-bit AMD/Opteron/EM64T > Installable package (InstallAnywhere as root) from [IBM Developer Works](http://www.ibm.com/developerworks/java/jdk/linux/download.html) and save it in the project home as `ibm-java-x86_64-sdk-8.0-2.10.bin`
 
-### Prep Spark
-Download spark-assembly-1.5.2-hadoop2.6.0.jar and save it in the project home.  This is part of IBM z/OS Platform for Apache Spark obtained through [ShopzSeries](http://www.software.ibm.com/ShopzSeries).
+	**NOTE: The project is tied to IBM Java 8R2, so you need ibm-java-x86_64-sdk-8.0-2.10.bin**
 
-### Prep Spark-Kernel
-Download spark-kernel-0.1.5-SNAPSHOT_zOS.zip and save it in the project home.  This can be obtained from [IBM Developer Works]().
+* **Spark assembly**: Download the `spark-assembly-1.5.2-hadoop2.6.0.jar` file and save it in the project home.  This is part of IBM z/OS Platform for Apache Spark obtained through [ShopzSeries](http://www.software.ibm.com/ShopzSeries).
 
+* **Spark Kernel**: Download the `spark-kernel-0.1.5-SNAPSHOT_zOS.zip` and save it in the project home.  This can be obtained from [IBM Developer Works]().
 
-### Setup Environment Variables (optional)
-You may wish to set specific env variables for use with your notebooks.  To do this, you need to modify the ```template/docker-compose.yml.template``` file.  (Note: the following has env variables set for JDBC_USER, JDBC_PASS, JDBC_HOST, MONGO_USER, MONGO_PASS and MONGO_HOST.)
+### Create or connect to a Docker host (optional)
 
-```yml
-version: "2"
-
-services:
-  notebook:
-    build: .
-    container_name: "TMP_WORKBOOK_NAME"
-    command: >
-      start-notebook.sh
-      --port="TMP_WORKBOOK_PORT"
-    network_mode: "host"
-    environment:
-      JDBC_USER: "<JDBC_USER>"
-      JDBC_PASS: "<JDBC_PASS>"
-      JDBC_HOST: "<JDBC_HOST>"
-      MONGO_USER: "<MONGO_USER>"
-      MONGO_PASS: "<MONGO_PASS>"
-      MONGO_HOST: "<MONGO_HOST>"
-    volumes:
-      - "work:/home/jovyan/work"
-volumes:
-  work:
-```
-
-
-### Setup Docker
-Set you your environment specific details in the 'config' file:
-(Note: in this example I am using 10.0.0.1 as the server IP and 7077 as the access port for the host running zSpark)
-
-```bash
-#!/bin/bash
-SPARK_HOST="10.0.0.1"      # Spark Master hostname/ip
-SPARK_PORT="7077"          # default spark master port
-WORKBOOK_NAME="workbook"   # default workbook name
-WORKBOOK_PORT="8888"       # default workbook port
-```
-
-Once the configuration is set, run the following:  
-
-**This is an optional step if you wish to create a custom Docker Machine**
+This step is optional if you are already on a host that supports the Docker Engine.  
 
 ```
 # Optional step to create a New Docker Machine
@@ -100,31 +58,89 @@ eval "$(docker-machine env mymachine)"
 docker-machine ip mymachine
 ```
 
-Build the Docker files, create the Docker container and start the Docker container:
+### Build the Workbench Docker Image
+
+Build the workbench Docker image.  The image will include a Jupyter Notebook server, Spark binaries, and other packages and libraries that allow you to connect to IBM z/OS Platform for Apache Spark.
+
+You must set the Spark master for the IBM z/OS Platform for Apache Spark.  You can do this by setting the `SPARK_HOST` environment variable.  For example:
 
 ```
-# To create and build the docker files (from the project root)
-sh build.sh
+export SPARK_HOST=10.0.0.10
+```
 
-# bring up the notebook container (from the project root)
+You can also optionally set the port number of the Spark master (default is 7077):
+
+```
+export SPARK_PORT=7077
+```
+
+Build the Docker image.
+
+```
+sh build.sh
+```
+
+The image will show up as `zos-spark/scala-notebook`.
+
+```
+docker images
+
+REPOSITORY                   TAG         IMAGE ID            CREATED             SIZE
+zos-spark/scala-notebook     latest      bbde4459bd98        10 seconds ago      5.244 GB
+```
+
+### Run the Workbench Container
+
+To create and start a workbench container, run the `start.sh` script.
+
+```
 sh start.sh
 ```
+
+This will create a container called `scala-workbench`.
+
+```
+docker ps 
+
+CONTAINER ID        IMAGE                        NAMES
+a72b4589135a        zos-spark/scala-notebook     scala-workbench
+```
+
 To access the workbench, visit `http://<mymachine_ip_address>:8888` in your web browser.
 
-To enter the container
+### Managing Containers
+
+To stop and remove the `scala-workbench` container, run
 
 ```
-# enter the container (enter 'exit' to leave the container)
-sh enter_container.sh
-```
-
-To stop and remove the container:
-
-```
-# bring down the notebook container (from the project root)
 sh stop.sh
 ```
 
+You can specify the container name and the port that the container binds to on the host by setting the `WORKBOOK_NAME` and `WORKBOOK_PORT` environment variables, respectively.  For example, to start the workbench container with the name `my-workbench` on port 8889, run:
+
+```
+WORKBENCH_NAME=my-workbench WORKBENCH_PORT=8889 sh start.sh
+```
+
+To stop the `my-workbench` container:
+
+```
+WORKBOOK_NAME=my-workbench sh stop.sh
+```
+
+#### Passing Environment Variables to the Container
+
+You may wish to make certain environment variables available to your notebooks.  The `docker-compose.yml` passes the following variables, if set: `JDBC_USER`, `JDBC_PASS`, `JDBC_HOST`, `MONGO_USER`, `MONGO_PASS`, and `MONGO_HOST`.
+
+Example:
+
+```
+export JDBC_HOST=10.0.0.11
+export JDBC_USER=dbuser
+export JDBC_PASS=dbpass
+
+sh start.sh
+```
 
 ## Demo Notebooks
 There are a series of demo notebooks located in the demos directory.  To use the demos, simply drag and drop them onto your workbench then run the application.  The demo may need to be modified before use, but each demo will have instructions on what needs to be modified.
