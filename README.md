@@ -106,11 +106,35 @@ CONTAINER ID        IMAGE                        NAMES
 a72b4589135a        zos-spark/scala-notebook     scala-workbench
 ```
 
-To access the workbench, visit `http://<mymachine_ip_address>:8888` in your web browser.
+To access the workbench, point your web browser to
 
-### Managing Containers
+```
+http://<mymachine_ip_address>:8888
+```
 
-To stop and remove the `scala-workbench` container, run
+#### Pass Environment Variables to the Container
+
+You may wish to make certain environment variables available to all notebooks in your workbench.  The start script will pass the following environment variables to the workbench, if set: `JDBC_USER`, `JDBC_PASS`, `JDBC_HOST`, `MONGO_USER`, `MONGO_PASS`, and `MONGO_HOST`.
+
+For example, to pass z/OS database host and credentials to the workbench:
+
+```
+export JDBC_HOST=10.0.0.11
+export JDBC_USER=dbuser
+export JDBC_PASS=dbpass
+
+sh start.sh
+```
+
+### Manage Containers
+
+To create and start a workbench container:
+
+```
+sh start.sh
+```
+
+To stop and remove the workbench container:
 
 ```
 sh stop.sh
@@ -126,20 +150,6 @@ To stop the `my-workbench` container:
 
 ```
 WORKBOOK_NAME=my-workbench sh stop.sh
-```
-
-#### Passing Environment Variables to the Container
-
-You may wish to make certain environment variables available to your notebooks.  The `docker-compose.yml` passes the following variables, if set: `JDBC_USER`, `JDBC_PASS`, `JDBC_HOST`, `MONGO_USER`, `MONGO_PASS`, and `MONGO_HOST`.
-
-Example:
-
-```
-export JDBC_HOST=10.0.0.11
-export JDBC_USER=dbuser
-export JDBC_PASS=dbpass
-
-sh start.sh
 ```
 
 ## Demo Notebooks
@@ -251,7 +261,9 @@ eval "$(docker-machine env mymachine)"
 
 ### Can I customize the workbench image?
 
-Yes.  You can customize the workbench image by modifying the files in the `template` directory.  For example, you can install the `pymongo` and `python-twitter` Python libraries by adding the following lines to the bottom of the Dockerfile:
+Yes.  You can customize the workbench image by modifying the `Dockerfile` and rebuilding the image.  
+
+For example, you can install the `pymongo` and `python-twitter` Python libraries by adding the following lines:
 
 ```
 RUN pip install \
@@ -259,7 +271,7 @@ RUN pip install \
     python-twitter==2.2
 ```
 
-Once you modify the Dockerfile, you need to rebuild the image and restart the notebook container before the changes will take effect.
+Once you modify the `Dockerfile`, you must rebuild the workbench image and restart the notebook container before the changes will take effect.
 
 ```
 # rebuild the notebook image
