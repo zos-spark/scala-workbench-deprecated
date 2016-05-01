@@ -6,4 +6,6 @@ The following are examples of files you might wish to download:
 *  imsudb.jar -> You can find this IMS™ Universal driver in, for example, ```/usr/lpp/ims/ims13/imsjava/imsudb.jar```
 *  db2jcc_license_cisuz.jar -> You can find this IBM® Data Server Driver for JDBC and SQLJ in, for example, ```/usr/lpp/db2b10/classes/db2jcc_license_cisuz.jar```
 *  db2jcc4.jar -> You can find this IBM® Data Server Driver for JDBC and SQLJ in, for example, ```/usr/lpp/db2b10/classes/db2jcc4.jar```
-*  dv-jdbc-3.1.22510.jar -> The Rocket Data Virtualization JDBC Driver is supplied by [Rocket Software, Inc.](http://www.rocketsoftware.com) as a compliment to the IBM z/OS Platform for Apache Spark. Thus driver provides an optimized JDBC interface to a wide range of datasources. This driver can be downloaded directly from [Rocket Support](https://download.rocketsoftware.com/ro/d/FF5103385B664E628DCA400B799400EC). [Learn more...](http://www.rocketsoftware.com/solutions/data-virtualization) 
+*  dv-jdbc-3.1.22510.jar -> The Rocket Data Virtualization JDBC Driver is supplied by [Rocket Software, Inc.](http://www.rocketsoftware.com) as a compliment to the IBM z/OS Platform for Apache Spark. The driver provides an optimized JDBC interface to a wide range of datasources. 
+  * Downloaded directly from [Rocket Support](https://download.rocketsoftware.com/ro/d/FF5103385B664E628DCA400B799400EC)
+  * [Learn more...](http://www.rocketsoftware.com/solutions/data-virtualization) 
