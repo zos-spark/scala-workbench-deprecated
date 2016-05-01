@@ -153,16 +153,18 @@ WORKBOOK_NAME=my-workbench sh stop.sh
 ```
 
 ## Demo Notebooks
-There are a series of demo notebooks located in the demos directory.  To use the demos, simply drag and drop them onto your workbench then run the application.  The demo may need to be modified before use, but each demo will have instructions on what needs to be modified.
+The ```demos``` directory contains sample Scala notebooks.  To use these notebooks, simply drag and drop them onto your workbench then run each notebook. The notebooks may need to be modified before use, but each notebook will have instructions on what needs to be modified.
 
-The following are examples of files you might wish to download:
+Depending on the data sources that your Scala notebook will access, you may need to load specifc drivers into your notebook. The following are examples of files you might wish to download and load in your notebook using the ```%addjar``` directive:
 
-*  imsudb.jar -> You can find this IMS™ Universal driver in, for example, ```/usr/lpp/ims/ims13/imsjava/imsudb.jar```
-*  db2jcc_license_cisuz.jar -> You can find this IBM® Data Server Driver for JDBC and SQLJ in, for example, ```/usr/lpp/db2b10/classes/db2jcc_license_cisuz.jar```
-*  db2jcc4.jar -> You can find this IBM® Data Server Driver for JDBC and SQLJ in, for example, ```/usr/lpp/db2b10/classes/db2jcc4.jar```
-*  dv-jdbc-3.1.22510.jar -> The Rocket JDBC driver is supplied as with the IBM z/OS Platform for Apache Spark obtained through [ShopzSeries](http://www.software.ibm.com/ShopzSeries).
-
-
+*  IMS™ Universal Driver (imsudb.jar): Typically you can find this driver in ```/usr/lpp/ims/ims13/imsjava/imsudb.jar``` within your IMS environment.
+*  IBM® Data Server Driver for JDBC and SQLJ : 
+	*  License (db2jcc_license_cisuz.jar): Typically you can find this file in ```/usr/lpp/db2b10/classes/db2jcc_license_cisuz.jar```  within your DB2 environment.
+	*  JDBC Driver (db2jcc4.jar): Typically you can find this file in ```/usr/lpp/db2b10/classes/db2jcc4.jar``` within your DB2 environment.
+*  Rocket Data Virtualization JDBC Driver (dv-jdbc-3.1.22510.jar): This driver is supplied by [Rocket Software, Inc.](http://www.rocketsoftware.com) as a compliment to the *IBM z/OS Platform for Apache Spark*. The driver provides an optimized JDBC interface to a wide range of datasources. 
+	* [Learn more...](http://www.rocketsoftware.com/solutions/data-virtualization) 
+  	* [Download](https://download.rocketsoftware.com/ro/d/FF5103385B664E628DCA400B799400EC) directly from Rocket Support
+  
 ## Troubleshooting
 
 ### Upgade the Docker Machine
