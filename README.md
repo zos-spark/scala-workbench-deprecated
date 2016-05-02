@@ -161,9 +161,9 @@ Depending on the data sources that your Scala notebook will access, you may need
 *  IBM® Data Server Driver for JDBC and SQLJ : 
 	*  License (db2jcc_license_cisuz.jar): Typically you can find this file in ```/usr/lpp/db2b10/classes/db2jcc_license_cisuz.jar```  within your DB2 environment.
 	*  JDBC Driver (db2jcc4.jar): Typically you can find this file in ```/usr/lpp/db2b10/classes/db2jcc4.jar``` within your DB2 environment.
-*  Rocket Data Virtualization JDBC Driver (dv-jdbc-3.1.22510.jar): This driver is supplied by [Rocket Software, Inc.](http://www.rocketsoftware.com) as a compliment to the *IBM z/OS Platform for Apache Spark*. The driver provides an optimized JDBC interface to a wide range of datasources. 
+*  JDBC driver for Mainframe Data Service for IBM z/OS Platform for Apache Spark: . This driver is part IBM z/OS Platform for Apache Spark release, delivered here for your convenience. Mainframe Data Service component of IBM z/OS Platform for Apache Spark provides optimized access to a wide range of data sources for example VSAM, SMF, Adabas, Physical Sequential files, IMS.
 	* [Learn more...](http://www.rocketsoftware.com/solutions/data-virtualization) 
-  	* [Download](https://download.rocketsoftware.com/ro/d/FF5103385B664E628DCA400B799400EC) directly from Rocket Support
+  	* [Download](https://download.rocketsoftware.com/ro/d/290841BC62A7437A8E08F6C2778E3DF1) directly from Rocket Support
   
 ## Troubleshooting
 
