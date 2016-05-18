@@ -44,7 +44,6 @@ RUN mkdir -p /opt/sparkkernel
 COPY spark-kernel-0.1.5-SNAPSHOT_zOS.zip /opt/ibm/zspark_skmaster/spark-kernel-0.1.5-SNAPSHOT_zOS.zip
 RUN unzip /opt/ibm/zspark_skmaster/spark-kernel-0.1.5-SNAPSHOT_zOS.zip -d /opt/ibm/zspark_skmaster/
 RUN rm /opt/ibm/zspark_skmaster/spark-kernel-0.1.5-SNAPSHOT_zOS.zip
-#RUN mv /opt/ibm/zspark_skmaster/spark-kernel/bin/spark-kernel /opt/ibm/zspark_skmaster/spark-kernel/bin/sparkkernel
 
 # - Secondly, we will replace Spark stack w/Spark-Assembly jar files from zOS Build
 COPY spark-assembly-1.5.2-hadoop2.6.0.jar /opt/ibm/zspark_skmaster/spark-kernel/lib/spark-assembly-1.5.2-hadoop2.6.0.jar
@@ -124,6 +123,5 @@ RUN pip install pymongo
 USER root
 # Reset Working Directory
 WORKDIR /home/$NB_USER/work
-RUN mkdir /home/$NB_USER/work/jars
 
 USER jovyan

@@ -13,12 +13,6 @@ services:
       --port=${WORKBOOK_PORT}
     network_mode: "host"
     environment:
-      JDBC_USER:
-      JDBC_PASS:
-      JDBC_HOST:
-      MONGO_USER:
-      MONGO_PASS:
-      MONGO_HOST:
       IBM_JAVA_OPTIONS: "-Dlog4j.configurationFile=/home/jovyan/work/log4j.properties"
     volumes:
       - "work:/home/jovyan/work"

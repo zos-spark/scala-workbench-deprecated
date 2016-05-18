@@ -62,22 +62,10 @@ docker-machine ip mymachine
 
 Build the workbench Docker image.  The image will include a Jupyter Notebook server, Spark binaries, and other packages and libraries that allow you to connect to IBM z/OS Platform for Apache Spark.
 
-You must set the Spark master for the IBM z/OS Platform for Apache Spark.  You can do this by setting the `SPARK_HOST` environment variable.  For example:
+You must set the Spark master for the IBM z/OS Platform for Apache Spark.  You can do this by setting the `SPARK_HOST` environment variable.  An example build would be:
 
 ```
-export SPARK_HOST=10.0.0.10
-```
-
-You can also optionally set the port number of the Spark master (default is 7077):
-
-```
-export SPARK_PORT=7077
-```
-
-Build the Docker image.
-
-```
-sh build.sh
+SPARK_HOST=10.0.0.10 sh build.sh
 ```
 
 The image will show up as `zos-spark/scala-notebook`.
@@ -110,20 +98,6 @@ To access the workbench, point your web browser to
 
 ```
 http://<mymachine_ip_address>:8888
-```
-
-#### Pass Environment Variables to the Container
-
-You may wish to make certain environment variables available to all notebooks in your workbench.  The start script will pass the following environment variables to the workbench, if set: `JDBC_USER`, `JDBC_PASS`, `JDBC_HOST`, `MONGO_USER`, `MONGO_PASS`, and `MONGO_HOST`.
-
-For example, to pass z/OS database host and credentials to the workbench:
-
-```
-export JDBC_HOST=10.0.0.11
-export JDBC_USER=dbuser
-export JDBC_PASS=dbpass
-
-sh start.sh
 ```
 
 ### Manage Containers

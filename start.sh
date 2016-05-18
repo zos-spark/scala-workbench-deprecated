@@ -2,8 +2,9 @@
 # (c) Copyright IBM Corp. 2016.  All Rights Reserved.
 # Distributed under the terms of the Modified BSD License.
 
-export WORKBOOK_NAME=${WORKBOOK_NAME:=scala-workbench}
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-export WORKBOOK_PORT=${WORKBOOK_PORT:=8888}
+source config
 
-docker-compose -p "$WORKBOOK_NAME" up -d
+WORKBOOK_PORT=$WORKBOOK_PORT WORKBOOK_NAME=$WORKBOOK_NAME WORKBOOK_VOLUME=$WORKBOOK_VOLUME \
+  docker-compose -f $DIR/docker-compose.yml -p $WORKBOOK_NAME up -d
