@@ -131,10 +131,7 @@ The ```demos``` directory contains sample Scala notebooks.  To use these noteboo
 
 Depending on the data sources that your Scala notebook will access, you may need to load specifc drivers into your notebook. The following are examples of files you might wish to download and load in your notebook using the ```%addjar``` directive:
 
-*  IMS™ Universal Driver (imsudb.jar): Typically you can find this driver in ```/usr/lpp/ims/ims13/imsjava/imsudb.jar``` within your IMS environment.
-*  IBM® Data Server Driver for JDBC and SQLJ : 
-	*  License (db2jcc_license_cisuz.jar): Typically you can find this file in ```/usr/lpp/db2b10/classes/db2jcc_license_cisuz.jar```  within your DB2 environment.
-	*  JDBC Driver (db2jcc4.jar): Typically you can find this file in ```/usr/lpp/db2b10/classes/db2jcc4.jar``` within your DB2 environment.
+
 *  JDBC driver for Mainframe Data Service for IBM z/OS Platform for Apache Spark: . This driver is part IBM z/OS Platform for Apache Spark release, delivered here for your convenience. Mainframe Data Service component of IBM z/OS Platform for Apache Spark provides optimized access to a wide range of data sources for example VSAM, SMF, Adabas, Physical Sequential files, IMS.
 	* [Learn more...](http://www.rocketsoftware.com/solutions/data-virtualization) 
   	* [Download](https://download.rocketsoftware.com/ro/d/290841BC62A7437A8E08F6C2778E3DF1) directly from Rocket Support
