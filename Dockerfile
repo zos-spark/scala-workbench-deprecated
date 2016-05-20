@@ -41,9 +41,10 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
 # System-z Patch for Spark libs
 RUN mkdir -p /opt/sparkkernel
 #  - First, we need to use a spark kernel built on zOS
-COPY spark-kernel-0.1.5-SNAPSHOT_zOS.zip /opt/ibm/zspark_skmaster/spark-kernel-0.1.5-SNAPSHOT_zOS.zip
-RUN unzip /opt/ibm/zspark_skmaster/spark-kernel-0.1.5-SNAPSHOT_zOS.zip -d /opt/ibm/zspark_skmaster/
-RUN rm /opt/ibm/zspark_skmaster/spark-kernel-0.1.5-SNAPSHOT_zOS.zip
+#COPY spark-kernel-0.1.5-SNAPSHOT_zOS.zip /opt/ibm/zspark_skmaster/spark-kernel-0.1.5-SNAPSHOT_zOS.zip
+RUN wget -q https://github.com/zos-spark/scala-workbench/releases/download/v1.0.0/spark-kernel-0.1.5-SNAPSHOT_zOS.zip
+RUN unzip spark-kernel-0.1.5-SNAPSHOT_zOS.zip -d /opt/ibm/zspark_skmaster/
+RUN rm spark-kernel-0.1.5-SNAPSHOT_zOS.zip
 
 # - Secondly, we will replace Spark stack w/Spark-Assembly jar files from zOS Build
 COPY spark-assembly-1.5.2-hadoop2.6.0.jar /opt/ibm/zspark_skmaster/spark-kernel/lib/spark-assembly-1.5.2-hadoop2.6.0.jar

@@ -32,7 +32,7 @@ To prepare your local desktop, follow the steps below:
 * Build the workbench Docker image on the VM
 * Run a workbench Docker container on the VM
 
-### Download JAR files
+### Download Dependency files
 
 * **IBM JAVA 8R2 SDK**: Download the IBM JAVA 8R2 sdk for 64-bit AMD/Opteron/EM64T > Installable package (InstallAnywhere as root) from [IBM Developer Works](http://www.ibm.com/developerworks/java/jdk/linux/download.html) and save it in the project home as `ibm-java-x86_64-sdk-8.0-2.10.bin`
 
@@ -40,7 +40,6 @@ To prepare your local desktop, follow the steps below:
 
 * **Spark assembly**: Download the `spark-assembly-1.5.2-hadoop2.6.0.jar` file and save it in the project home.  This is part of IBM z/OS Platform for Apache Spark obtained through [ShopzSeries](https://www-304.ibm.com/software/shopzseries/ShopzSeries_public.wss).
 
-* **Spark Kernel**: Download the `spark-kernel-0.1.5-SNAPSHOT_zOS.zip` and save it in the project home.  This can be obtained from [IBM Developer Works](http://www-03.ibm.com/systems/z/os/zos/apache-spark.html).  You will need to click "Get the download", fill out the web form, and download the zip file that contains `spark-kernel-0.1.5-SNAPSHOT_zOS.zip`
 
 ### Create or connect to a Docker host (optional)
 
