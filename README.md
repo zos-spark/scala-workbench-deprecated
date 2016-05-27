@@ -34,9 +34,9 @@ To prepare your local desktop, follow the steps below:
 
 ### Download Dependency files
 
-* **IBM JAVA 8R2 SDK**: Download the IBM JAVA 8R2 sdk for 64-bit AMD/Opteron/EM64T > Installable package (InstallAnywhere as root) from [IBM Developer Works](http://www.ibm.com/developerworks/java/jdk/linux/download.html) and save it in the project home as `ibm-java-x86_64-sdk-8.0-2.10.bin`
+* **IBM JAVA 8SR3 SDK**: Download the IBM JAVA 8SR3 sdk for 64-bit AMD/Opteron/EM64T > Installable package (InstallAnywhere as root) from [IBM Developer Works](http://www.ibm.com/developerworks/java/jdk/linux/download.html) and save it in the project home as `ibm-java-x86_64-sdk-8.0-3.0.bin`
 
-	**NOTE: The project is tied to IBM Java 8R2, so you need ibm-java-x86_64-sdk-8.0-2.10.bin**
+	**NOTE: The project is tied to IBM Java 8R2, so you need ibm-java-x86_64-sdk-8.0-3.0.bin**
 
 * **Spark assembly**: Download the `spark-assembly-1.5.2-hadoop2.6.0.jar` file and save it in the project home.  This is part of IBM z/OS Platform for Apache Spark obtained through [ShopzSeries](https://www-304.ibm.com/software/shopzseries/ShopzSeries_public.wss).
 

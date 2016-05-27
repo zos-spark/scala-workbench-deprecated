@@ -9,11 +9,11 @@ USER root
 
 # Setup Java
 RUN mkdir -p /opt/ibm/java
-COPY ibm-java-x86_64-sdk-8.0-2.10.bin /opt/ibm/java/ibm-java-x86_64-sdk-8.0-2.10.bin
+COPY ibm-java-x86_64-sdk-8.0-3.0.bin /opt/ibm/java/ibm-java-x86_64-sdk-8.0-3.0.bin
 COPY installer.properties /opt/ibm/java/installer.properties
 RUN chmod -R 755 /opt/ibm/java
 WORKDIR /opt/ibm/java
-RUN ./ibm-java-x86_64-sdk-8.0-2.10.bin -r installer.properties
+RUN ./ibm-java-x86_64-sdk-8.0-3.0.bin -r installer.properties
 RUN rm -Rf /usr/lib/jvm/default-java
 RUN mkdir -p /usr/lib/jvm/default-java
 RUN ln -s /opt/ibm/java/* /usr/lib/jvm/default-java
@@ -41,7 +41,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF && \
 # System-z Patch for Spark libs
 RUN mkdir -p /opt/sparkkernel
 #  - First, we need to use a spark kernel built on zOS
-#COPY spark-kernel-0.1.5-SNAPSHOT_zOS.zip /opt/ibm/zspark_skmaster/spark-kernel-0.1.5-SNAPSHOT_zOS.zip
 RUN wget -q https://github.com/zos-spark/scala-workbench/releases/download/v1.0.0/spark-kernel-0.1.5-SNAPSHOT_zOS.zip
 RUN unzip spark-kernel-0.1.5-SNAPSHOT_zOS.zip -d /opt/ibm/zspark_skmaster/
 RUN rm spark-kernel-0.1.5-SNAPSHOT_zOS.zip
