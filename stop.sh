@@ -7,4 +7,5 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source config
 
 WORKBOOK_PORT=$WORKBOOK_PORT WORKBOOK_NAME=$WORKBOOK_NAME WORKBOOK_VOLUME=$WORKBOOK_VOLUME \
+  SPARK_PORT=$SPARK_PORT SPARK_HOST=$SPARK_HOST \
   docker-compose -f $DIR/docker-compose.yml -p $WORKBOOK_NAME down

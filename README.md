@@ -36,151 +36,14 @@ To prepare your local desktop, follow the steps below:
 
 * **IBM JAVA 8SR3 SDK**: Download the IBM JAVA 8SR3 sdk for 64-bit AMD/Opteron/EM64T > Installable package (InstallAnywhere as root) from [IBM Developer Works](http://www.ibm.com/developerworks/java/jdk/linux/download.html) and save it in the project home as `ibm-java-x86_64-sdk-8.0-3.0.bin`
 
-	**NOTE: The project is tied to IBM Java 8R2, so you need ibm-java-x86_64-sdk-8.0-3.0.bin**
+	**NOTE: The project is tied to IBM Java 8SR3, so you need ibm-java-x86_64-sdk-8.0-3.0.bin**
 
 * **Spark assembly**: Download the `spark-assembly-1.5.2-hadoop2.6.0.jar` file and save it in the project home.  This is part of IBM z/OS Platform for Apache Spark obtained through [ShopzSeries](https://www-304.ibm.com/software/shopzseries/ShopzSeries_public.wss).
 
 
-### Create or connect to a Docker host (optional)
+### Deploy to a Docker Host
 
-This step is optional if you are already on a host that supports the Docker Engine.  
-
-```
-# Optional step to create a New Docker Machine
-# create a Docker Machine-controlled VirtualBox VM
-docker-machine create --driver virtualbox --virtualbox-memory "4096" --virtualbox-cpu-count "4" mymachine
-
-# activate the docker machine
-eval "$(docker-machine env mymachine)"
-
-#You can retrieve the IP address using:
-docker-machine ip mymachine
-```
-
-### Build the Workbench Docker Image
-
-Build the workbench Docker image.  The image will include a Jupyter Notebook server, Spark binaries, and other packages and libraries that allow you to connect to IBM z/OS Platform for Apache Spark.
-
-You must set the Spark master for the IBM z/OS Platform for Apache Spark.  You can do this by setting the `SPARK_HOST` environment variable.  An example build would be:
-
-```
-SPARK_HOST=10.0.0.10 sh build.sh
-```
-
-The image will show up as `zos-spark/scala-notebook`.
-
-```
-docker images
-
-REPOSITORY                   TAG         IMAGE ID            CREATED             SIZE
-zos-spark/scala-notebook     latest      bbde4459bd98        10 seconds ago      5.244 GB
-```
-
-### Run the Workbench Container
-
-To create and start a workbench container, run the `start.sh` script.
-
-```
-sh start.sh
-```
-
-This will create a container called `scala-workbench`.
-
-```
-docker ps 
-
-CONTAINER ID        IMAGE                        NAMES
-a72b4589135a        zos-spark/scala-notebook     scala-workbench
-```
-
-To access the workbench, point your web browser to
-
-```
-http://<mymachine_ip_address>:8888
-```
-
-### Manage Containers
-
-To create and start a workbench container:
-
-```
-sh start.sh
-```
-
-To stop and remove the workbench container:
-
-```
-sh stop.sh
-```
-
-You can specify the container name and the port that the container binds to on the host by setting the `WORKBOOK_NAME` and `WORKBOOK_PORT` environment variables, respectively.  For example, to start the workbench container with the name `my-workbench` on port 8889, run:
-
-```
-WORKBENCH_NAME=my-workbench WORKBENCH_PORT=8889 sh start.sh
-```
-
-To stop the `my-workbench` container:
-
-```
-WORKBOOK_NAME=my-workbench sh stop.sh
-```
-
-## Demo Notebooks
-The ```demos``` directory contains sample Scala notebooks.  To use these notebooks, simply drag and drop them onto your workbench then run each notebook. The notebooks may need to be modified before use, but each notebook will have instructions on what needs to be modified.
-
-Depending on the data sources that your Scala notebook will access, you may need to load specifc drivers into your notebook. The following are examples of files you might wish to download and load in your notebook using the ```%addjar``` directive:
-
-
-*  JDBC driver for Mainframe Data Service for IBM z/OS Platform for Apache Spark: . This driver is part IBM z/OS Platform for Apache Spark release, delivered here for your convenience. Mainframe Data Service component of IBM z/OS Platform for Apache Spark provides optimized access to a wide range of data sources for example VSAM, SMF, Adabas, Physical Sequential files, IMS.
-	* [Learn more...](http://www.rocketsoftware.com/solutions/data-virtualization) 
-  	* [Download](https://download.rocketsoftware.com/ro/d/290841BC62A7437A8E08F6C2778E3DF1) directly from Rocket Support
-  
-## Troubleshooting
-
-### Upgade the Docker Machine
-When encountering a message similar to "ERROR: Service 'notebook' failed to build: Network timed out while trying to connect to https://index.docker.io/v1/repositories/jupyter/minimal-notebook/images. You may want to check your internet connection or if you are behind a proxy."
-
- ```
- # Upgrade the Docker Machine (example machine name: mymachine)
- docker-machine upgrade mymachine
- ```
-
-
-## FAQ
-
-### Can I deploy to any host?
-
-You can build and run the Docker images in this repo on any host that supports a recent version of [Docker Engine](https://docs.docker.com/engine/).  
-
-This repo assumes that you are using [Docker Machine](https://docs.docker.com/machine/) to provision and manage multiple remote Docker hosts.
-
-To make it easier to get up and running, this repo includes scripts that use Docker Machine to provision new virtual machines on both VirtualBox and IBM SoftLayer.
-
-To create a Docker Machine on a new VirtualBox VM on your local desktop:
-
-```
-bin/vbox.sh mymachine
-```
-
-To create a Docker Machine on a new virtual device on IBM SoftLayer:
-
-```
-# Set SoftLayer credential as environment variables to be
-# passed to Docker Machine
-export SOFTLAYER_USER=my_softlayer_username
-export SOFTLAYER_API_KEY=my_softlayer_api_key
-export SOFTLAYER_DOMAIN=my.domain
-
-# Create virtual device
-bin/softlayer.sh myhost
-
-# Add DNS entry (SoftLayer DNS zone must exist for SOFTLAYER_DOMAIN)
-bin/sl-dns.sh myhost
-```
-
-In addition, you can use the scripts in this repo to build and run the workbench image on any other Docker Machine-controlled host.
-
-### How do I deploy to an existing host?
+This workbench has strict network requirements to be run correctly.  In order to run this workbench, you need a host that can communicate with the Spark Host bidirectionally.  So, the workbench needs to be built on a host that supports that networking requirement.
 
 To build and run the Docker images in this repo on an existing host, you simply need to add the host as a Docker machine.   All you need is the server's IP address, and the ability to login to the server using an SSH keypair.
 
@@ -230,6 +93,87 @@ To run Docker commands on `mymachine`, activate it by running:
 ```
 eval "$(docker-machine env mymachine)"
 ```
+
+### Build the Workbench Docker Image
+
+Build the workbench Docker image.  The image will include a Jupyter Notebook server, Spark binaries, and other packages and libraries that allow you to connect to IBM z/OS Platform for Apache Spark.
+
+```
+sh build.sh
+```
+
+The image will show up as `zos-spark/scala-notebook`.
+
+```
+docker images
+
+REPOSITORY                   TAG         IMAGE ID            CREATED             SIZE
+zos-spark/scala-notebook     latest      bbde4459bd98        10 seconds ago      5.244 GB
+```
+
+### Manage the Workbench Container
+
+To create and start a workbench container, run the `start.sh` script.  You must set the Spark master for the IBM z/OS Platform for Apache Spark.  You can do this by setting the `SPARK_HOST` environment variable.
+
+```
+SPARK_HOST=10.0.0.10 sh start.sh
+```
+
+This will create a container called `scala-workbench`.
+
+```
+docker ps 
+
+CONTAINER ID        IMAGE                        NAMES
+a72b4589135a        zos-spark/scala-notebook     scala-workbench
+```
+
+To access the workbench, point your web browser to (the default port for the workbench is 8888)
+
+```
+http://<mymachine_ip_address>:8888
+```
+
+To stop and remove the workbench container:
+
+```
+sh stop.sh
+```
+
+You can specify the container name and the port that the container binds to on the host by setting the `WORKBOOK_NAME` and `WORKBOOK_PORT` environment variables, respectively.  For example, to start the workbench container with the name `my-workbench` on port 8889, run:
+
+```
+WORKBENCH_NAME=my-workbench WORKBENCH_PORT=8889 sh start.sh
+```
+
+To stop the `my-workbench` container:
+
+```
+WORKBOOK_NAME=my-workbench sh stop.sh
+```
+
+## Demo Notebooks
+The ```demos``` directory contains sample Scala notebooks.  To use these notebooks, simply drag and drop them onto your workbench then run each notebook. The notebooks may need to be modified before use, but each notebook will have instructions on what needs to be modified.
+
+Depending on the data sources that your Scala notebook will access, you may need to load specifc drivers into your notebook. The following are examples of files you might wish to download and load in your notebook using the ```%addjar``` directive:
+
+
+*  JDBC driver for Mainframe Data Service for IBM z/OS Platform for Apache Spark: . This driver is part IBM z/OS Platform for Apache Spark release, delivered here for your convenience. Mainframe Data Service component of IBM z/OS Platform for Apache Spark provides optimized access to a wide range of data sources for example VSAM, SMF, Adabas, Physical Sequential files, IMS.
+	* [Learn more...](http://www.rocketsoftware.com/solutions/data-virtualization) 
+  	* [Download](https://download.rocketsoftware.com/ro/d/290841BC62A7437A8E08F6C2778E3DF1) directly from Rocket Support
+  
+## Troubleshooting
+
+### Upgade the Docker Machine
+When encountering a message similar to "ERROR: Service 'notebook' failed to build: Network timed out while trying to connect to https://index.docker.io/v1/repositories/jupyter/minimal-notebook/images. You may want to check your internet connection or if you are behind a proxy."
+
+ ```
+ # Upgrade the Docker Machine (example machine name: mymachine)
+ docker-machine upgrade mymachine
+ ```
+
+
+## FAQ
 
 ### Can I customize the workbench image?
 

@@ -85,10 +85,12 @@ RUN conda create -p $CONDA_DIR/envs/python2 python=2.7 \
 
 # Scala Spark kernel spec
 RUN mkdir -p /opt/conda/share/jupyter/kernels/scala
-COPY kernel.json /opt/conda/share/jupyter/kernels/scala/
-
+RUN ln -s /home/jovyan/kernel.json /opt/conda/share/jupyter/kernels/scala/kernel.json
+COPY template/kernel.json.template /home/jovyan/kernel.json.template
 
 USER root
+
+RUN chown jovyan:users /home/jovyan/kernel.json.template
 
 # Install npm and bower
     #ln -s /usr/bin/nodejs /usr/bin/node && \
@@ -100,6 +102,7 @@ RUN apt-get update && \
 
 # Do the pip installs as the unprivileged notebook user
 USER jovyan
+
 
 # Install dashboard layout and preview within Jupyter Notebook
 RUN pip install jupyter_dashboards && \
