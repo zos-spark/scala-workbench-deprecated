@@ -143,7 +143,7 @@ sh stop.sh
 You can specify the container name and the port that the container binds to on the host by setting the `WORKBOOK_NAME` and `WORKBOOK_PORT` environment variables, respectively.  For example, to start the workbench container with the name `my-workbench` on port 8889, run:
 
 ```
-WORKBENCH_NAME=my-workbench WORKBENCH_PORT=8889 sh start.sh
+WORKBOOK_NAME=my-workbench WORKBOOK_PORT=8889 sh start.sh
 ```
 
 To stop the `my-workbench` container:
