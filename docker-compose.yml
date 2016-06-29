@@ -9,9 +9,12 @@ services:
     image: zos-spark/scala-notebook
     container_name: ${WORKBOOK_NAME}
     command: >
-      bash -c "cat /home/jovyan/kernel.json.template | sed 's/TMP_SPARK_HOST/${SPARK_HOST}/g;s/TMP_SPARK_PORT/${SPARK_PORT}/g' > /home/jovyan/kernel.json; start-notebook.sh --port=${WORKBOOK_PORT}"
+      bash -c "WORKBOOK_PORT=${WORKBOOK_PORT} SPARK_HOST=${SPARK_HOST} SPARK_PORT=${SPARK_PORT} SPARK_CPUS=${SPARK_CPUS} SPARK_MEM=${SPARK_MEM} start-kernel.sh"
+      #bash -c "cat /home/jovyan/kernel.json.template | sed 's/TMP_SPARK_HOST/${SPARK_HOST}/g;s/TMP_SPARK_PORT/${SPARK_PORT}/g' > /home/jovyan/kernel.json; start-notebook.sh --port=${WORKBOOK_PORT}"
     network_mode: "host"
     environment:
+      USE_HTTPS: "yes"
+      PASSWORD: ${PASSWORD}
       IBM_JAVA_OPTIONS: "-Dlog4j.configurationFile=/home/jovyan/work/log4j.properties"
     volumes:
       - "work:/home/jovyan/work"

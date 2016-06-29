@@ -115,8 +115,10 @@ zos-spark/scala-notebook     latest      bbde4459bd98        10 seconds ago     
 
 To create and start a workbench container, run the `start.sh` script.  You must set the Spark master for the IBM z/OS Platform for Apache Spark.  You can do this by setting the `SPARK_HOST` environment variable.
 
+The Workbench is set to use password authentication by default, if you wish to turn it off, you will need to comment out the `PASSWORD` entry in the `docker-compose.yml` file.  Otherwise you can build the workbench as follows:
+
 ```
-SPARK_HOST=10.0.0.10 sh start.sh
+SPARK_HOST=10.0.0.10 PASSWORD=bla123 sh start.sh
 ```
 
 This will create a container called `scala-workbench`.
@@ -128,10 +130,10 @@ CONTAINER ID        IMAGE                        NAMES
 a72b4589135a        zos-spark/scala-notebook     scala-workbench
 ```
 
-To access the workbench, point your web browser to (the default port for the workbench is 8888)
+The workbench uses a self signed certified certificate for security.  To access the workbench, point your web browser to (the default port for the workbench is 8888)
 
 ```
-http://<mymachine_ip_address>:8888
+https://<mymachine_ip_address>:8888
 ```
 
 To stop and remove the workbench container:
@@ -140,17 +142,18 @@ To stop and remove the workbench container:
 sh stop.sh
 ```
 
-You can specify the container name and the port that the container binds to on the host by setting the `WORKBOOK_NAME` and `WORKBOOK_PORT` environment variables, respectively.  For example, to start the workbench container with the name `my-workbench` on port 8889, run:
+### Advance Customization
+The following are a list of configuration variables you can set at run time to customize your workbench:
 
-```
-WORKBOOK_NAME=my-workbench WORKBOOK_PORT=8889 sh start.sh
-```
+* WORKBOOK_NAME -> name of the docker container
+* WORKBOOK_PORT -> port the Jupyter user interface will appear on
+* WORKBOOK_VOLUME -> volume the docker container will save work into
+* SPARK_HOST -> The Spark Master IP or Hostname (must be consistent with the Spark Master definition)
+* SPARK_PORT -> Access port for the Spark Master
+* SPARK_CPUS -> Number of CPUs that the Spark-Kernel will use on the Spark cluster
+* SPARK_MEM -> Amount of RAM that the Spark-Kernel will use on the Spark cluster
 
-To stop the `my-workbench` container:
-
-```
-WORKBOOK_NAME=my-workbench sh stop.sh
-```
+These fields can be modified in your env, the config file, or at the commandline.
 
 ## Demo Notebooks
 The ```demos``` directory contains sample Scala notebooks.  To use these notebooks, simply drag and drop them onto your workbench then run each notebook. The notebooks may need to be modified before use, but each notebook will have instructions on what needs to be modified.

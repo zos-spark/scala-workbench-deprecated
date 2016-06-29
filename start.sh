@@ -10,9 +10,14 @@ if [ -z "${SPARK_HOST:+x}" ]; then
   echo "Error: SPARK_HOST is not set"
   exit 1
 fi
+if [ -z "${PASSWORD:+x}" ]; then
+  echo "Error: PASSWORD is not set"
+  exit 1
+fi
 
 docker volume create --name $WORKBOOK_VOLUME
 
 WORKBOOK_PORT=$WORKBOOK_PORT WORKBOOK_NAME=$WORKBOOK_NAME WORKBOOK_VOLUME=$WORKBOOK_VOLUME \
-  SPARK_PORT=$SPARK_PORT SPARK_HOST=$SPARK_HOST \
+  SPARK_PORT=$SPARK_PORT SPARK_HOST=$SPARK_HOST SPARK_CPUS=$SPARK_CPUS SPARK_MEM=$SPARK_MEM \
+  PASSWORD=$PASSWORD \
   docker-compose -f $DIR/docker-compose.yml -p $WORKBOOK_NAME up -d

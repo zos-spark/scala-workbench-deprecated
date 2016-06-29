@@ -10,7 +10,7 @@ USER root
 # Setup Java
 RUN mkdir -p /opt/ibm/java
 COPY ibm-java-x86_64-sdk-8.0-3.0.bin /opt/ibm/java/ibm-java-x86_64-sdk-8.0-3.0.bin
-COPY installer.properties /opt/ibm/java/installer.properties
+COPY files/installer.properties /opt/ibm/java/installer.properties
 RUN chmod -R 755 /opt/ibm/java
 WORKDIR /opt/ibm/java
 RUN ./ibm-java-x86_64-sdk-8.0-3.0.bin -r installer.properties
@@ -86,7 +86,8 @@ RUN conda create -p $CONDA_DIR/envs/python2 python=2.7 \
 # Scala Spark kernel spec
 RUN mkdir -p /opt/conda/share/jupyter/kernels/scala
 RUN ln -s /home/jovyan/kernel.json /opt/conda/share/jupyter/kernels/scala/kernel.json
-COPY template/kernel.json.template /home/jovyan/kernel.json.template
+COPY files/kernel.json.template /home/jovyan/kernel.json.template
+COPY files/start-kernel.sh /usr/local/bin/
 
 USER root
 
