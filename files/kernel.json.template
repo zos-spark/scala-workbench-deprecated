@@ -8,7 +8,8 @@
     ],
     "env": {
         "SPARK_CONFIGURATION": "spark.master=spark://TMP_SPARK_HOST:TMP_SPARK_PORT,spark.cores.max=TMP_SPARK_CPUS,spark.executor.memory=TMP_SPARK_MEM,spark.serializer=org.apache.spark.serializer.KryoSerializer",
-        "JVM_OPT": "-Duser.name=jovyan",
-        "SPARK_USER": "jovyan"
+        "JVM_OPT": "-Duser.name=TMP_SPARK_USER",
+        "SPARK_USER": "TMP_SPARK_USER",
+        "IBM_JAVA_OPTIONS": "-Dlog4j.configurationFile=/home/jovyan/work/log4j.properties -Duser.name=TMP_SPARK_USER"
     }
 }

@@ -145,13 +145,15 @@ sh stop.sh
 ### Advance Customization
 The following are a list of configuration variables you can set at run time to customize your workbench:
 
-* WORKBOOK_NAME -> name of the docker container
-* WORKBOOK_PORT -> port the Jupyter user interface will appear on
-* WORKBOOK_VOLUME -> volume the docker container will save work into
+* WORKBOOK_NAME -> Name of the docker container
+* WORKBOOK_PORT -> Port the Jupyter user interface will appear on
+* WORKBOOK_VOLUME -> Volume the docker container will save work into
+* WORKBOOK_DEBUG -> Run Jupyter in debug mode for auditing
 * SPARK_HOST -> The Spark Master IP or Hostname (must be consistent with the Spark Master definition)
 * SPARK_PORT -> Access port for the Spark Master
 * SPARK_CPUS -> Number of CPUs that the Spark-Kernel will use on the Spark cluster
 * SPARK_MEM -> Amount of RAM that the Spark-Kernel will use on the Spark cluster
+* SPARK_USER -> The Spark user that Spark-Kernel will use on the Spark cluster
 
 These fields can be modified in your env, the config file, or at the commandline.
 

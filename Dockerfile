@@ -85,13 +85,15 @@ RUN conda create -p $CONDA_DIR/envs/python2 python=2.7 \
 
 # Scala Spark kernel spec
 RUN mkdir -p /opt/conda/share/jupyter/kernels/scala
-RUN ln -s /home/jovyan/kernel.json /opt/conda/share/jupyter/kernels/scala/kernel.json
-COPY files/kernel.json.template /home/jovyan/kernel.json.template
-COPY files/start-kernel.sh /usr/local/bin/
+#RUN ln -s /home/jovyan/kernel.json /opt/conda/share/jupyter/kernels/scala/kernel.json
+##RUN ln -s /opt/conda/share/jupyter/kernels/scala/kernel.json.template /opt/conda/share/jupyter/kernels/scala/kernel.json
+##COPY files/kernel.json.template /opt/conda/share/jupyter/kernels/scala/kernel.json.template
+#COPY files/kernel.json.template /home/jovyan/kernel.json.template
+#COPY files/start-kernel.sh /usr/local/bin/
 
 USER root
 
-RUN chown jovyan:users /home/jovyan/kernel.json.template
+#RUN chown jovyan:users /home/jovyan/kernel.json.template
 
 # Install npm and bower
     #ln -s /usr/bin/nodejs /usr/bin/node && \
