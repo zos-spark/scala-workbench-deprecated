@@ -1,5 +1,6 @@
 .DS_Store
 ibm-java-x86_64-sdk-8.0-2.10.bin
+ibm-java-x86_64-sdk-8.0-3.0.bin
 kernel.json
 spark-assembly-1.5.2-hadoop2.6.0.jar
 spark-kernel-0.1.5-SNAPSHOT_zOS.zip

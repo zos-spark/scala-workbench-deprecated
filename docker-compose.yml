@@ -18,3 +18,5 @@ services:
       - "work:/home/jovyan/work"
 volumes:
   work:
+    external:
+      name: ${WORKBOOK_VOLUME}

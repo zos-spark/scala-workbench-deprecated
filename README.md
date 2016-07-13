@@ -142,6 +142,19 @@ To stop and remove the workbench container:
 sh stop.sh
 ```
 
+Another way to set this is in the ```config``` file.  If you set all parameters in that file, you can start and stop the container as follows:
+
+```
+sh start.sh
+```
+
+and
+
+```
+sh stop.sh
+```
+
+
 ### Advance Customization
 The following are a list of configuration variables you can set at run time to customize your workbench:
 
@@ -155,7 +168,16 @@ The following are a list of configuration variables you can set at run time to c
 * SPARK_MEM -> Amount of RAM that the Spark-Kernel will use on the Spark cluster
 * SPARK_USER -> The Spark user that Spark-Kernel will use on the Spark cluster
 
-These fields can be modified in your env, the config file, or at the commandline.
+These fields can be modified in your env, the config file, or at the commandline.  You can also define a custom config file which may be preferred if you are building more than one workbench.  If you create a custom config file, you must start and stop your containers as follows:
+
+```
+sh start.sh <path/to/config>
+```
+and
+
+```
+sh stop.sh <path/to/config>
+```
 
 ## Demo Notebooks
 The ```demos``` directory contains sample Scala notebooks.  To use these notebooks, simply drag and drop them onto your workbench then run each notebook. The notebooks may need to be modified before use, but each notebook will have instructions on what needs to be modified.
