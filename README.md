@@ -113,7 +113,7 @@ zos-spark/scala-notebook     latest      bbde4459bd98        10 seconds ago     
 
 ### Manage the Workbench Container
 
-To create and start a workbench container, run the `start.sh` script.  You must set the Spark master for the IBM z/OS Platform for Apache Spark.  You can do this by setting the `SPARK_HOST` environment variable.
+To create and start a workbench container, run the `start.sh` script.  You must set the Spark master for the IBM z/OS Platform for Apache Spark and the Workbook IP.  You can do this by setting the `SPARK_HOST` and `WORKBOOK_IP` environment variables.
 
 The Workbench is set to use password authentication by default, if you wish to turn it off, you will need to comment out the `PASSWORD` entry in the `docker-compose.yml` file.  Otherwise you can build the workbench as follows:
 

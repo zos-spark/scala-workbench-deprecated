@@ -10,5 +10,6 @@ SPARK_USER=${SPARK_USER:="jovyan"}
 WORKBOOK_NAME=${WORKBOOK_NAME:="workbook"}
 WORKBOOK_PORT=${WORKBOOK_PORT:="8888"}
 WORKBOOK_VOLUME=${WORKBOOK_VOLUME:="default-vol"}
+WORKBOOK_UP=${WORKBOOK_IP:=}
 #WORKBOOK_DEBUG=${WORKBOOK_DEBUG:="--debug"}      # Uncomment this line to enable debug mode
 PASSWORD=${PASSWORD:=}

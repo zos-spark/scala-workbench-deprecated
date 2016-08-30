@@ -85,18 +85,9 @@ RUN conda create -p $CONDA_DIR/envs/python2 python=2.7 \
 
 # Scala Spark kernel spec
 RUN mkdir -p /opt/conda/share/jupyter/kernels/scala
-#RUN ln -s /home/jovyan/kernel.json /opt/conda/share/jupyter/kernels/scala/kernel.json
-##RUN ln -s /opt/conda/share/jupyter/kernels/scala/kernel.json.template /opt/conda/share/jupyter/kernels/scala/kernel.json
-##COPY files/kernel.json.template /opt/conda/share/jupyter/kernels/scala/kernel.json.template
-#COPY files/kernel.json.template /home/jovyan/kernel.json.template
-#COPY files/start-kernel.sh /usr/local/bin/
 
 USER root
 
-#RUN chown jovyan:users /home/jovyan/kernel.json.template
-
-# Install npm and bower
-    #ln -s /usr/bin/nodejs /usr/bin/node && \
 RUN apt-get update && \
     apt-get install -y curl && \
     curl --silent --location https://deb.nodesource.com/setup_0.12 | sudo bash - && \
@@ -106,23 +97,23 @@ RUN apt-get update && \
 # Do the pip installs as the unprivileged notebook user
 USER jovyan
 
+#Run pip install --upgrade pip
+RUN pip install --upgrade pip
 
 # Install dashboard layout and preview within Jupyter Notebook
 RUN pip install jupyter_dashboards && \
-  jupyter dashboards install --user --symlink && \
-  jupyter dashboards activate
+  jupyter dashboards quick-setup --sys-prefix 
 
 # Install declarative widgets for Jupyter Notebook
-RUN pip install jupyter_declarativewidgets==0.3.0 && \
-  jupyter declarativewidgets install --user --symlink && \
-  jupyter declarativewidgets activate
+RUN pip install jupyter_declarativewidgets && \
+  jupyter declarativewidgets quick-setup --sys-prefix 
 
 # Install content management to support dashboard bundler options
 RUN pip install jupyter_cms && \
-  jupyter cms install --user --symlink && \
-  jupyter cms activate
+  jupyter cms quick-setup --sys-prefix
+
 RUN pip install jupyter_dashboards_bundlers && \
-  jupyter dashboards_bundlers activate
+  jupyter dashboards_bundlers quick-setup --sys-prefix
 
 RUN pip install pymongo
 

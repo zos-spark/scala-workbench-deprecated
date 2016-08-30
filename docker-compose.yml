@@ -14,6 +14,7 @@ services:
     environment:
       USE_HTTPS: "yes"
       PASSWORD: ${PASSWORD}
+      SPARK_HOST_IP: ${WORKBOOK_IP}
     volumes:
       - "work:/home/jovyan/work"
 volumes:
