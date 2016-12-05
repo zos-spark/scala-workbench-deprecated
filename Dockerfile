@@ -102,18 +102,21 @@ RUN pip install --upgrade pip
 
 # Install dashboard layout and preview within Jupyter Notebook
 RUN pip install jupyter_dashboards && \
-  jupyter dashboards quick-setup --sys-prefix 
+  jupyter dashboards install --user --symlink && \
+  jupyter dashboards activate
 
 # Install declarative widgets for Jupyter Notebook
-RUN pip install jupyter_declarativewidgets && \
-  jupyter declarativewidgets quick-setup --sys-prefix 
+RUN pip install jupyter_declarativewidgets==0.3.0 && \
+  jupyter declarativewidgets install --user --symlink && \
+  jupyter declarativewidgets activate
 
 # Install content management to support dashboard bundler options
 RUN pip install jupyter_cms && \
-  jupyter cms quick-setup --sys-prefix
-
+  jupyter cms install --user --symlink && \
+  jupyter cms activate
 RUN pip install jupyter_dashboards_bundlers && \
-  jupyter dashboards_bundlers quick-setup --sys-prefix
+  jupyter dashboards_bundlers activate
+
 
 RUN pip install pymongo
 
